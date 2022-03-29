@@ -27,4 +27,5 @@ h1{
     position: relative;
     width: 8rem;
     left: calc(50% - 4rem);
+    margin-top: 0.5rem;
 }
