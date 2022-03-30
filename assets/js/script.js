@@ -59,7 +59,7 @@ function cleanQuestionContainer() {
 
 }
 
-//Funtion that will create and append the question elements to the DOM
+//Function that will create and append the question elements to the DOM
 function createQuestionElements() {
 
     let questionText = document.createElement('h4');
@@ -103,6 +103,7 @@ function clickHandler(event) {
         cleanQuestionContainer();
         activeQuestion = 0;
         createQuestionElements();
+        countdown();
         renderQuestion();
     }
     else {
