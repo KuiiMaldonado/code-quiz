@@ -29,11 +29,11 @@ const questions = [{
 //Top right countdown timer
 var timer = document.getElementById('timer');
 var startQuizButton = document.getElementById('startQuiz');
-var questionDiv = document.getElementById('question')
 
 //Function that will trigger the timer
 function countdown() {
     var timeLeft = 75;
+    cleanQuestionContainer();
 
     var timeInterval = setInterval(function () {
 
@@ -46,5 +46,38 @@ function countdown() {
     }, 1000);
 }
 
+//Function that will "clean" the question-container
+function cleanQuestionContainer() {
+
+    let heading = document.getElementById('question-header')
+    let intro = document.getElementById('question-p');
+    let button = document.getElementById('startQuiz');
+
+    heading.remove();
+    intro.remove();
+    button.remove();
+
+}
+
+//Function to render the questions
+function renderQuestion(event) {
+    let element = event.target;
+    let questionContainer = document.getElementById('question-container');
+
+    if (element.matches('#startQuiz')) {
+        cleanQuestionContainer();
+        let questionText = document.createElement('h4');
+        let answersList = document.createElement('ol');
+        questionText.textContent = questions[0].question;
+        questionContainer.appendChild(questionText);
+        questionContainer.appendChild(answersList);
+        for (var i = 0; i < 4; i++) {
+            let liElement = document.createElement('li');
+            liElement.textContent = questions[0].options[i];
+            answersList.appendChild(liElement);
+        }
+    }
+}
+
 //Event listener for startQuiz button
-startQuizButton.addEventListener('click', countdown);
+startQuizButton.addEventListener('click', renderQuestion);

@@ -8,6 +8,10 @@ h1{
     font-size: 2.2rem;
 }
 
+h4{
+    font-size: 1.6rem;
+}
+
 /* Style for the header children */
 .scores-time {
     margin: 0.5rem;
@@ -16,7 +20,7 @@ h1{
 }
 
 /* Styles for the question div */
-.question {
+#question-container {
     position: absolute;
     width: 30rem;
     height: 30rem;
