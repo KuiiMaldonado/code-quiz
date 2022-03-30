@@ -48,36 +48,36 @@ function countdown() {
 
 //Function that will "clean" the question-container
 function cleanQuestionContainer() {
-
-    let heading = document.getElementById('question-header')
-    let intro = document.getElementById('question-p');
-    let button = document.getElementById('startQuiz');
-
-    heading.remove();
-    intro.remove();
-    button.remove();
-
+    questionContainer.innerHTML = '';
 }
 
 //Function that will create and append the question elements to the DOM
-function createQuestionElements() {
+//depending on the parameter it will create the template for another question
+//or the score template
+//@params - 0 creates the score template, 1 creates question template
+function createTemplateElements(template) {
 
-    let questionText = document.createElement('h4');
-    let answersList = document.createElement('ul');
+    if (template === 1) {
+        let questionText = document.createElement('h4');
+        let answersList = document.createElement('ul');
 
-    questionText.setAttribute('id', 'question-header');
-    questionContainer.appendChild(questionText);
-    questionContainer.appendChild(answersList);
+        questionText.setAttribute('id', 'question-header');
+        questionContainer.appendChild(questionText);
+        questionContainer.appendChild(answersList);
 
-    for (let i = 1; i <= 4; i++) {
+        for (let i = 1; i <= 4; i++) {
 
-        let liElement = document.createElement('li')
-        let buttonElement = document.createElement('button');
+            let liElement = document.createElement('li')
+            let buttonElement = document.createElement('button');
 
-        buttonElement.setAttribute('class', 'option-item');
-        buttonElement.setAttribute('id', 'option_' + i);
-        answersList.appendChild(liElement);
-        liElement.appendChild(buttonElement);
+            buttonElement.setAttribute('class', 'option-item');
+            buttonElement.setAttribute('id', 'option_' + i);
+            answersList.appendChild(liElement);
+            liElement.appendChild(buttonElement);
+        }
+    }
+    else {
+
     }
 }
 
@@ -102,7 +102,7 @@ function clickHandler(event) {
     if (element.matches('#startQuiz')) {
         cleanQuestionContainer();
         activeQuestion = 0;
-        createQuestionElements();
+        createTemplateElements(1);
         countdown();
         renderQuestion();
     }
@@ -110,6 +110,9 @@ function clickHandler(event) {
         activeQuestion++;
         if (activeQuestion < questions.length)
             renderQuestion();
+        else {
+
+        }
     }
 }
 
