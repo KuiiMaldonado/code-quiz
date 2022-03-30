@@ -27,8 +27,8 @@ const questions = [{
 ];
 
 //Top right countdown timer
-var timer = document.getElementById('timer');
-var questionContainer = document.getElementById('question-container');
+const timer = document.getElementById('timer');
+const questionContainer = document.getElementById('question-container');
 var activeQuestion = undefined;
 
 //Function that will trigger the timer
@@ -60,8 +60,7 @@ function cleanQuestionContainer() {
 }
 
 //Funtion that will create and append the question elements to the DOM
-function createQuestionELements() {
-    let questionContainer = document.getElementById('question-container');
+function createQuestionElements() {
 
     let questionText = document.createElement('h4');
     let answersList = document.createElement('ul');
@@ -70,11 +69,11 @@ function createQuestionELements() {
     questionContainer.appendChild(questionText);
     questionContainer.appendChild(answersList);
 
-    for (var i = 1; i <= 4; i++) {
+    for (let i = 1; i <= 4; i++) {
+
         let liElement = document.createElement('li')
         let buttonElement = document.createElement('button');
 
-        // buttonElement.textContent = i + '.' + questions[activeQuestion].options[i-1];
         buttonElement.setAttribute('class', 'option-item');
         buttonElement.setAttribute('id', 'option_' + i);
         answersList.appendChild(liElement);
@@ -86,18 +85,12 @@ function createQuestionELements() {
 function renderQuestion() {
 
     let questionText = document.getElementById('question-header')
-
     questionText.textContent = questions[activeQuestion].question;
 
-    for (var i = 1; i <= 4; i++) {
-        // let liElement = document.createElement('li')
-        // let buttonElement = document.createElement('button');
+    for (let i = 1; i <= 4; i++) {
+
         let buttonElement = document.getElementById("option_" + i);
         buttonElement.textContent = i + '.' + questions[activeQuestion].options[i-1];
-        // buttonElement.setAttribute('class', 'option-item');
-        // buttonElement.setAttribute('id', 'option_' + i);
-        // answersList.appendChild(liElement);
-        // liElement.appendChild(buttonElement);
     }
 }
 
@@ -109,7 +102,7 @@ function clickHandler(event) {
     if (element.matches('#startQuiz')) {
         cleanQuestionContainer();
         activeQuestion = 0;
-        createQuestionELements();
+        createQuestionElements();
         renderQuestion();
     }
     else {
