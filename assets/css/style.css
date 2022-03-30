@@ -4,12 +4,20 @@
     font-size: 20px;
 }
 
-h1{
+h1 {
     font-size: 2.2rem;
 }
 
-h4{
+h4 {
     font-size: 1.6rem;
+}
+
+ul {
+   list-style: none;
+}
+
+li {
+    margin-top: 0.5rem;
 }
 
 /* Style for the header children */
@@ -32,4 +40,10 @@ h4{
     width: 8rem;
     left: calc(50% - 4rem);
     margin-top: 0.5rem;
+}
+
+/* Styles for answer options */
+.option-item{
+    cursor: pointer;
+    background-color: yellow;
 }

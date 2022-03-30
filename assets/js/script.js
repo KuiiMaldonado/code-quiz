@@ -28,13 +28,13 @@ const questions = [{
 
 //Top right countdown timer
 var timer = document.getElementById('timer');
-var startQuizButton = document.getElementById('startQuiz');
+var questionContainer = document.getElementById('question-container');
+var activeQuestion = undefined;
 
 //Function that will trigger the timer
 function countdown() {
-    var timeLeft = 75;
-    cleanQuestionContainer();
 
+    var timeLeft = 75;
     var timeInterval = setInterval(function () {
 
         timer.textContent = 'Time: ' + timeLeft;
@@ -59,25 +59,65 @@ function cleanQuestionContainer() {
 
 }
 
-//Function to render the questions
-function renderQuestion(event) {
-    let element = event.target;
+//Funtion that will create and append the question elements to the DOM
+function createQuestionELements() {
     let questionContainer = document.getElementById('question-container');
+
+    let questionText = document.createElement('h4');
+    let answersList = document.createElement('ul');
+
+    questionText.setAttribute('id', 'question-header');
+    questionContainer.appendChild(questionText);
+    questionContainer.appendChild(answersList);
+
+    for (var i = 1; i <= 4; i++) {
+        let liElement = document.createElement('li')
+        let buttonElement = document.createElement('button');
+
+        // buttonElement.textContent = i + '.' + questions[activeQuestion].options[i-1];
+        buttonElement.setAttribute('class', 'option-item');
+        buttonElement.setAttribute('id', 'option_' + i);
+        answersList.appendChild(liElement);
+        liElement.appendChild(buttonElement);
+    }
+}
+
+//Function to render the questions
+function renderQuestion() {
+
+    let questionText = document.getElementById('question-header')
+
+    questionText.textContent = questions[activeQuestion].question;
+
+    for (var i = 1; i <= 4; i++) {
+        // let liElement = document.createElement('li')
+        // let buttonElement = document.createElement('button');
+        let buttonElement = document.getElementById("option_" + i);
+        buttonElement.textContent = i + '.' + questions[activeQuestion].options[i-1];
+        // buttonElement.setAttribute('class', 'option-item');
+        // buttonElement.setAttribute('id', 'option_' + i);
+        // answersList.appendChild(liElement);
+        // liElement.appendChild(buttonElement);
+    }
+}
+
+//Function to handle the clicks of the click
+function clickHandler(event) {
+
+    let element = event.target;
 
     if (element.matches('#startQuiz')) {
         cleanQuestionContainer();
-        let questionText = document.createElement('h4');
-        let answersList = document.createElement('ol');
-        questionText.textContent = questions[0].question;
-        questionContainer.appendChild(questionText);
-        questionContainer.appendChild(answersList);
-        for (var i = 0; i < 4; i++) {
-            let liElement = document.createElement('li');
-            liElement.textContent = questions[0].options[i];
-            answersList.appendChild(liElement);
-        }
+        activeQuestion = 0;
+        createQuestionELements();
+        renderQuestion();
+    }
+    else {
+        activeQuestion++;
+        if (activeQuestion < questions.length)
+            renderQuestion();
     }
 }
 
 //Event listener for startQuiz button
-startQuizButton.addEventListener('click', renderQuestion);
+questionContainer.addEventListener('click', clickHandler);
