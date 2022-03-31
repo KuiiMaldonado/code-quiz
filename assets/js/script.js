@@ -39,7 +39,7 @@ var timeLeft;
 //Function that will trigger the timer
 function countdown() {
 
-    timeLeft = 10;
+    timeLeft = 75;
     timer.textContent = 'Time: ' + timeLeft;
     timeInterval = setInterval(function () {
         timeLeft--;
