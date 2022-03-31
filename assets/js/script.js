@@ -179,6 +179,9 @@ function questionContainerClickHandler(event) {
             createTemplateElements(1);
         }
     }
+    else if (element.matches('#back-button')) {
+        location.reload();
+    }
 }
 
 //Function to submit score
@@ -190,6 +193,7 @@ function submitScore(event) {
     createTemplateElements(2);
 }
 
-//Event listener for clicks in question-container element
+//Event listeneres for clicks
 questionContainer.addEventListener('click', questionContainerClickHandler);
 submit.addEventListener('click', submitScore);
+scoreContainer.addEventListener('click', questionContainerClickHandler)
