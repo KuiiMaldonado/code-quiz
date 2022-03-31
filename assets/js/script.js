@@ -81,12 +81,6 @@ function createTemplateElements(template) {
             liElement.appendChild(buttonElement);
         }
     }
-    else if (template === 1){
-        questionContainer.setAttribute('class', "hidden");
-        scoreContainer.classList.remove('hidden');
-        let finalScore = document.getElementById('final-score');
-        finalScore.textContent = 'Your final score is ' + timeLeft;
-    }
 }
 
 //Function to render highscores screen
@@ -114,6 +108,14 @@ function renderHighScores() {
 
     scoreContainer.appendChild(backButton);
     scoreContainer.appendChild(clearScores);
+}
+
+//Function render set initials screen
+function renderInitials() {
+    questionContainer.setAttribute('class', "hidden");
+    scoreContainer.classList.remove('hidden');
+    let finalScore = document.getElementById('final-score');
+    finalScore.textContent = 'Your final score is ' + timeLeft;
 }
 
 //Function to render the questions
@@ -181,7 +183,7 @@ function questionContainerClickHandler(event) {
         else {
             clearInterval(timeInterval);
             cleanQuestionContainer();
-            createTemplateElements(1);
+            renderInitials();
         }
     }
     else if (element.matches('#back-button')) {
