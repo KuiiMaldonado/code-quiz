@@ -90,16 +90,23 @@ function renderHighScores() {
     cleanQuestionContainer();
     questionContainer.setAttribute('class', "hidden");
     scoreContainer.classList.remove('hidden');
-
     let form = document.getElementById('form');
     form.remove();
 
     let header = document.getElementById('score-header');
     let text = document.getElementById('final-score');
-    let player = localStorage.key(0);
-
+    let scoresList = document.createElement('ul');
+    text.replaceWith(scoresList);
+    scoresList.setAttribute('id', 'scores-list');
+    let player;
     header.textContent = 'High Scores';
-    text.textContent = '1. ' + player + '-' + localStorage.getItem(player);
+
+    for (let i = 1; i <= localStorage.length; i++) {
+        let liElement = document.createElement('li');
+        player = localStorage.key(i-1);
+        liElement.textContent = i + '. ' + player + ' - ' + localStorage.getItem(player);
+        scoresList.appendChild(liElement);
+    }
 
     let backButton = document.createElement('button');
     let clearScores = document.createElement('button');
@@ -107,7 +114,6 @@ function renderHighScores() {
     clearScores.setAttribute('id', 'clear-scores');
     backButton.textContent = 'Back';
     clearScores.textContent = 'Clear scores';
-
     scoreContainer.appendChild(backButton);
     scoreContainer.appendChild(clearScores);
 }
@@ -201,7 +207,7 @@ function questionContainerClickHandler(event) {
     }
     else if (element.matches('#clear-scores')) {
         localStorage.clear();
-        let text = document.getElementById('final-score');
+        let text = document.getElementById('scores-list');
         text.remove();
     }
 }
