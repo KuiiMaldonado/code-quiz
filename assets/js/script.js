@@ -57,29 +57,23 @@ function cleanQuestionContainer() {
 }
 
 //Function that will create and append the question elements to the DOM
-//depending on the parameter it will create the template for another question
-//or the score template
-//@params - 0 creates question template, 1 creates initials template, 2 creates high-scores template
-function createTemplateElements(template) {
+function createTemplateElements() {
 
-    if (template === 0) {
-        let questionText = document.createElement('h4');
-        let answersList = document.createElement('ul');
+    let questionText = document.createElement('h4');
+    let answersList = document.createElement('ul');
 
-        questionText.setAttribute('id', 'question-header');
-        questionContainer.appendChild(questionText);
-        questionContainer.appendChild(answersList);
+    questionText.setAttribute('id', 'question-header');
+    questionContainer.appendChild(questionText);
+    questionContainer.appendChild(answersList);
+    for (let i = 1; i <= 4; i++) {
 
-        for (let i = 1; i <= 4; i++) {
+        let liElement = document.createElement('li')
+        let buttonElement = document.createElement('button');
 
-            let liElement = document.createElement('li')
-            let buttonElement = document.createElement('button');
-
-            buttonElement.setAttribute('class', 'option-item');
-            buttonElement.setAttribute('id', 'option_' + i);
-            answersList.appendChild(liElement);
-            liElement.appendChild(buttonElement);
-        }
+        buttonElement.setAttribute('class', 'option-item');
+        buttonElement.setAttribute('id', 'option_' + i);
+        answersList.appendChild(liElement);
+        liElement.appendChild(buttonElement);
     }
 }
 
@@ -171,7 +165,7 @@ function questionContainerClickHandler(event) {
     if (element.matches('#startQuiz')) {
         cleanQuestionContainer();
         activeQuestion = 0;
-        createTemplateElements(0);
+        createTemplateElements();
         countdown();
         renderQuestion();
     }
