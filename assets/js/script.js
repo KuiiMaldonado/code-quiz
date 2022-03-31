@@ -79,7 +79,12 @@ function createTemplateElements() {
 
 //Function to render highscores screen
 function renderHighScores() {
+    //If we click start quiz and then the view high scores button the timer will continue-
+    //We clear the interval and set the time left back to zero.
     clearInterval(timeInterval);
+    timeLeft = 0;
+    timer.textContent = 'Time: ' + timeLeft;
+
     cleanQuestionContainer();
     questionContainer.setAttribute('class', "hidden");
     scoreContainer.classList.remove('hidden');
