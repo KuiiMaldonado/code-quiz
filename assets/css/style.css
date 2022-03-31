@@ -20,6 +20,11 @@ li {
     margin-top: 0.5rem;
 }
 
+hr {
+    color:gray;
+    background-color:gray;
+}
+
 /* Style for the header children */
 .scores-time {
     margin: 0.5rem;

@@ -124,6 +124,36 @@ function renderQuestion() {
     }
 }
 
+function renderCorrectIncorrect(isCorrect) {
+    let hr = document.createElement('hr');
+    let span = document.createElement('span');
+
+    if(isCorrect)
+        span.textContent = 'Correct';
+    else
+        span.textContent = 'Wrong';
+
+    questionContainer.appendChild(hr);
+    questionContainer.appendChild(span);
+
+    let timeout = setTimeout(function (){
+        hr.remove();
+        span.remove();
+    }, 1000);
+}
+
+//Function to check if answers correct
+function checkAnswer(option) {
+
+    let number = option.charAt(option.length - 1);
+    number = parseInt(number);
+
+    if (questions[activeQuestion].answer === number)
+        renderCorrectIncorrect(true);
+    else
+        renderCorrectIncorrect(false);
+}
+
 //Function to handle the clicks of the questionContainer
 function questionContainerClickHandler(event) {
 
@@ -137,6 +167,7 @@ function questionContainerClickHandler(event) {
         renderQuestion();
     }
     else if (element.id.includes('option')){
+        checkAnswer(element.id);
         activeQuestion++;
         if (activeQuestion < questions.length)
             renderQuestion();
