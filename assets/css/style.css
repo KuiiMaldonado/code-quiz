@@ -55,4 +55,12 @@ hr {
 .option-item{
     cursor: pointer;
     background-color: yellow;
+    border-radius: 7px;
+}
+
+/* Styles for score-container buttons */
+#score-container button {
+    margin-left: 2rem;
+    background-color: yellow;
+    border-radius: 7px;
 }
