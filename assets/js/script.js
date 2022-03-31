@@ -42,14 +42,14 @@ function countdown() {
     timeLeft = 10;
     timer.textContent = 'Time: ' + timeLeft;
     timeInterval = setInterval(function () {
-
         timeLeft--;
+        if (timeLeft < 0)
+            timeLeft = 0;
         timer.textContent = 'Time: ' + timeLeft;
         if (timeLeft <= 0) {
             clearInterval(timeInterval);
             renderInitials();
         }
-
     }, 1000);
 }
 
@@ -165,6 +165,11 @@ function checkAnswer(option) {
     else {
         renderCorrectIncorrect(false);
         timeLeft -= 10;
+        if(timeLeft <= 0) {
+            renderInitials();
+            timeLeft = 0;
+            timer.textContent = 'Time: ' + timeLeft;
+        }
     }
 }
 
