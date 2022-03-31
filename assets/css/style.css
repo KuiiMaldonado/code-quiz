@@ -14,6 +14,7 @@ h4 {
 
 ul {
    list-style: none;
+    padding: 0;
 }
 
 li {
@@ -69,6 +70,11 @@ hr {
     margin-left: 2rem;
     background-color: yellow;
     border-radius: 7px;
+}
+
+/* Style for high scores list */
+#scores-list li {
+    background-color: aqua;
 }
 
 /*Media queries */
