@@ -18,12 +18,21 @@
         </div>
     </header>
     <main>
-        <div class="question">
-            <h1>Coding Quiz Challenge</h1>
-            <p>Try to answer the following code-related questions within the time limit.<br>
+        <div id="question-container">
+            <h1 id="question-header">Coding Quiz Challenge</h1>
+            <p id="question-p">Try to answer the following code-related questions within the time limit.<br>
                 Keep in mind that incorrect answers will penalize your score/time by ten seconds!
             </p>
             <button id="startQuiz">Start Quiz</button>
+        </div>
+        <div id="score-container" class="hidden">
+            <h1 id="score-header">All done!</h1>
+            <p id="final-score"></p>
+            <form id="form">
+                <label>Enter initials</label>
+                <input type="text" id="initials" placeholder="initials">
+                <button id="submit">Submit</button>
+            </form>
         </div>
     </main>
     <script src="./assets/js/script.js"></script>
