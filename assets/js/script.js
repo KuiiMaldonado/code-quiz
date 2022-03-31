@@ -27,8 +27,8 @@ const questions = [
     }
 ];
 
-//Top right countdown timer
 const timer = document.getElementById('timer');
+const viewHighscores = document.getElementById('highscores-button');
 const questionContainer = document.getElementById('question-container');
 const scoreContainer = document.getElementById('score-container');
 const submit = document.getElementById('submit');
@@ -87,28 +87,33 @@ function createTemplateElements(template) {
         let finalScore = document.getElementById('final-score');
         finalScore.textContent = 'Your final score is ' + timeLeft;
     }
-    else if (template === 2) {
-        let header = document.getElementById('score-header');
-        let text = document.getElementById('final-score');
-        let form = document.getElementById('form');
+}
 
-        let player = localStorage.key(0);
+//Function to render highscores screen
+function renderHighScores() {
+    cleanQuestionContainer();
+    questionContainer.setAttribute('class', "hidden");
+    scoreContainer.classList.remove('hidden');
 
-        header.textContent = 'High Scores';
-        text.textContent = '1. ' + player + '-' + localStorage.getItem(player);
-        form.remove();
+    let form = document.getElementById('form');
+    form.remove();
 
-        let backButton = document.createElement('button');
-        let clearScores = document.createElement('button');
+    let header = document.getElementById('score-header');
+    let text = document.getElementById('final-score');
+    let player = localStorage.key(0);
 
-        backButton.setAttribute('id', 'back-button');
-        clearScores.setAttribute('id', 'clear-scores');
-        backButton.textContent = 'Back';
-        clearScores.textContent = 'Clear scores';
+    header.textContent = 'High Scores';
+    text.textContent = '1. ' + player + '-' + localStorage.getItem(player);
 
-        scoreContainer.appendChild(backButton);
-        scoreContainer.appendChild(clearScores);
-    }
+    let backButton = document.createElement('button');
+    let clearScores = document.createElement('button');
+    backButton.setAttribute('id', 'back-button');
+    clearScores.setAttribute('id', 'clear-scores');
+    backButton.textContent = 'Back';
+    clearScores.textContent = 'Clear scores';
+
+    scoreContainer.appendChild(backButton);
+    scoreContainer.appendChild(clearScores);
 }
 
 //Function to render the questions
@@ -195,10 +200,11 @@ function submitScore(event) {
     event.preventDefault();
     let inputText = document.getElementById('initials');
     localStorage.setItem(inputText.value, timeLeft);
-    createTemplateElements(2);
+    renderHighScores();
 }
 
 //Event listeneres for clicks
 questionContainer.addEventListener('click', questionContainerClickHandler);
 submit.addEventListener('click', submitScore);
 scoreContainer.addEventListener('click', questionContainerClickHandler)
+viewHighscores.addEventListener('click', renderHighScores);
