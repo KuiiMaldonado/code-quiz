@@ -182,6 +182,11 @@ function questionContainerClickHandler(event) {
     else if (element.matches('#back-button')) {
         location.reload();
     }
+    else if (element.matches('#clear-scores')) {
+        localStorage.clear();
+        let text = document.getElementById('final-score');
+        text.remove();
+    }
 }
 
 //Function to submit score
