@@ -28,7 +28,7 @@ li {
 }
 
 /* Styles for the question div */
-#question-container {
+#question-container, #score-container {
     position: absolute;
     width: 30rem;
     height: 30rem;
@@ -40,6 +40,10 @@ li {
     width: 8rem;
     left: calc(50% - 4rem);
     margin-top: 0.5rem;
+}
+
+.hidden {
+    display: none;
 }
 
 /* Styles for answer options */
