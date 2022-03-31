@@ -207,8 +207,8 @@ function questionContainerClickHandler(event) {
     }
     else if (element.matches('#clear-scores')) {
         localStorage.clear();
-        let text = document.getElementById('scores-list');
-        text.remove();
+        let list = document.getElementById('scores-list');
+        list.remove();
     }
 }
 
