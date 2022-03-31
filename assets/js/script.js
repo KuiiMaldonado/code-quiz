@@ -27,8 +27,8 @@ const questions = [
     }
 ];
 
-//Top right countdown timer
 const timer = document.getElementById('timer');
+const viewHighscores = document.getElementById('highscores-button');
 const questionContainer = document.getElementById('question-container');
 const scoreContainer = document.getElementById('score-container');
 const submit = document.getElementById('submit');
@@ -57,58 +57,68 @@ function cleanQuestionContainer() {
 }
 
 //Function that will create and append the question elements to the DOM
-//depending on the parameter it will create the template for another question
-//or the score template
-//@params - 0 creates question template, 1 creates initials template, 2 creates high-scores template
-function createTemplateElements(template) {
+function createTemplateElements() {
 
-    if (template === 0) {
-        let questionText = document.createElement('h4');
-        let answersList = document.createElement('ul');
+    let questionText = document.createElement('h4');
+    let answersList = document.createElement('ul');
 
-        questionText.setAttribute('id', 'question-header');
-        questionContainer.appendChild(questionText);
-        questionContainer.appendChild(answersList);
+    questionText.setAttribute('id', 'question-header');
+    questionContainer.appendChild(questionText);
+    questionContainer.appendChild(answersList);
+    for (let i = 1; i <= 4; i++) {
 
-        for (let i = 1; i <= 4; i++) {
+        let liElement = document.createElement('li')
+        let buttonElement = document.createElement('button');
 
-            let liElement = document.createElement('li')
-            let buttonElement = document.createElement('button');
-
-            buttonElement.setAttribute('class', 'option-item');
-            buttonElement.setAttribute('id', 'option_' + i);
-            answersList.appendChild(liElement);
-            liElement.appendChild(buttonElement);
-        }
+        buttonElement.setAttribute('class', 'option-item');
+        buttonElement.setAttribute('id', 'option_' + i);
+        answersList.appendChild(liElement);
+        liElement.appendChild(buttonElement);
     }
-    else if (template === 1){
-        questionContainer.setAttribute('class', "hidden");
-        scoreContainer.classList.remove('hidden');
-        let finalScore = document.getElementById('final-score');
-        finalScore.textContent = 'Your final score is ' + timeLeft;
-    }
-    else if (template === 2) {
-        let header = document.getElementById('score-header');
-        let text = document.getElementById('final-score');
-        let form = document.getElementById('form');
+}
 
-        let player = localStorage.key(0);
+//Function to render highscores screen
+function renderHighScores() {
+    //If we click start quiz and then the view high scores button the timer will continue-
+    //We clear the interval and set the time left back to zero.
+    clearInterval(timeInterval);
+    timeLeft = 0;
+    timer.textContent = 'Time: ' + timeLeft;
 
-        header.textContent = 'High Scores';
-        text.textContent = '1. ' + player + '-' + localStorage.getItem(player);
-        form.remove();
+    cleanQuestionContainer();
+    questionContainer.setAttribute('class', "hidden");
+    scoreContainer.classList.remove('hidden');
 
-        let backButton = document.createElement('button');
-        let clearScores = document.createElement('button');
+    let form = document.getElementById('form');
+    form.remove();
 
-        backButton.setAttribute('id', 'back-button');
-        clearScores.setAttribute('id', 'clear-scores');
-        backButton.textContent = 'Back';
-        clearScores.textContent = 'Clear scores';
+    let header = document.getElementById('score-header');
+    let text = document.getElementById('final-score');
+    let player = localStorage.key(0);
 
-        scoreContainer.appendChild(backButton);
-        scoreContainer.appendChild(clearScores);
-    }
+    header.textContent = 'High Scores';
+    text.textContent = '1. ' + player + '-' + localStorage.getItem(player);
+
+    let backButton = document.createElement('button');
+    let clearScores = document.createElement('button');
+    backButton.setAttribute('id', 'back-button');
+    clearScores.setAttribute('id', 'clear-scores');
+    backButton.textContent = 'Back';
+    clearScores.textContent = 'Clear scores';
+
+    scoreContainer.appendChild(backButton);
+    scoreContainer.appendChild(clearScores);
+}
+
+//Function render set initials screen
+function renderInitials() {
+    questionContainer.setAttribute('class', "hidden");
+    scoreContainer.classList.remove('hidden');
+
+    //We update the timer text here so it matches the actual score.
+    timer.textContent = 'Time: ' + timeLeft;
+    let finalScore = document.getElementById('final-score');
+    finalScore.textContent = 'Your final score is ' + timeLeft;
 }
 
 //Function to render the questions
@@ -164,7 +174,7 @@ function questionContainerClickHandler(event) {
     if (element.matches('#startQuiz')) {
         cleanQuestionContainer();
         activeQuestion = 0;
-        createTemplateElements(0);
+        createTemplateElements();
         countdown();
         renderQuestion();
     }
@@ -176,7 +186,7 @@ function questionContainerClickHandler(event) {
         else {
             clearInterval(timeInterval);
             cleanQuestionContainer();
-            createTemplateElements(1);
+            renderInitials();
         }
     }
     else if (element.matches('#back-button')) {
@@ -195,10 +205,11 @@ function submitScore(event) {
     event.preventDefault();
     let inputText = document.getElementById('initials');
     localStorage.setItem(inputText.value, timeLeft);
-    createTemplateElements(2);
+    renderHighScores();
 }
 
 //Event listeneres for clicks
 questionContainer.addEventListener('click', questionContainerClickHandler);
 submit.addEventListener('click', submitScore);
 scoreContainer.addEventListener('click', questionContainerClickHandler)
+viewHighscores.addEventListener('click', renderHighScores);
