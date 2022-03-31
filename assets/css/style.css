@@ -70,3 +70,28 @@ hr {
     background-color: yellow;
     border-radius: 7px;
 }
+
+/*Media queries */
+@media screen and (max-width: 1700px){
+    * {
+        font-size: 17px;
+    }
+}
+
+@media screen and (max-width: 1200px){
+    * {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 1000px){
+    * {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 500px){
+    * {
+        font-size: 9px;
+    }
+}
