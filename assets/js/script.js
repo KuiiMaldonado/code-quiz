@@ -150,8 +150,10 @@ function checkAnswer(option) {
 
     if (questions[activeQuestion].answer === number)
         renderCorrectIncorrect(true);
-    else
+    else {
         renderCorrectIncorrect(false);
+        timeLeft -= 10;
+    }
 }
 
 //Function to handle the clicks of the questionContainer
