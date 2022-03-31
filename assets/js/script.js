@@ -79,6 +79,7 @@ function createTemplateElements() {
 
 //Function to render highscores screen
 function renderHighScores() {
+    clearInterval(timeInterval);
     cleanQuestionContainer();
     questionContainer.setAttribute('class', "hidden");
     scoreContainer.classList.remove('hidden');
@@ -108,6 +109,9 @@ function renderHighScores() {
 function renderInitials() {
     questionContainer.setAttribute('class', "hidden");
     scoreContainer.classList.remove('hidden');
+
+    //We update the timer text here so it matches the actual score.
+    timer.textContent = 'Time: ' + timeLeft;
     let finalScore = document.getElementById('final-score');
     finalScore.textContent = 'Your final score is ' + timeLeft;
 }
