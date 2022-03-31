@@ -136,7 +136,7 @@ function questionContainerClickHandler(event) {
         countdown();
         renderQuestion();
     }
-    else{
+    else if (element.id.includes('option')){
         activeQuestion++;
         if (activeQuestion < questions.length)
             renderQuestion();
