@@ -126,14 +126,11 @@ function renderHighScores() {
     let scoresList = document.createElement('ul');
     text.replaceWith(scoresList);
     scoresList.setAttribute('id', 'scores-list');
-    let player;
     let scoresArray = sortHighScores();
     header.textContent = 'High Scores';
 
     for (let i = 1; i <= scoresArray.length; i++) {
         let liElement = document.createElement('li');
-        // let key = 'player ' + i;
-        // player = JSON.parse(localStorage.getItem(key));
         liElement.textContent = i + '. ' + scoresArray[i - 1].initials + ' - ' + scoresArray[i - 1].score;
         scoresList.appendChild(liElement);
     }
