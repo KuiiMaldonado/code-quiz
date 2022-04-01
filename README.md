@@ -21,3 +21,12 @@ WHEN all questions are answered or the timer reaches 0
 THEN the game is over
 WHEN the game is over
 THEN I can save my initials and my score
+
+## Deployed app
+
+### URL: https://kuiimaldonado.github.io/code-quiz/
+
+![Code quiz instructions](assets/images/main_screen.jpg)
+![Question in the code quiz](assets/images/questions_screen.jpg)
+![Submit your initials and score to save it](assets/images/submit_score.jpg)
+![Screen showing the saved high scores](assets/images/high_scores.jpg)
