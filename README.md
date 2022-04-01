@@ -27,7 +27,17 @@ THEN I can save my initials and my score
 
 ### URL: https://kuiimaldonado.github.io/code-quiz/
 
+You will be displayed with the main screen containing the instructions.
 ![Code quiz instructions](assets/images/main_screen.jpg)
+
+Click on the correct option. Below it will be displayed if the answer is correct or wrong.
 ![Question in the code quiz](assets/images/questions_screen.jpg)
+
+When the quiz is finished you will be asked to submit your initials so you can save your score.
 ![Submit your initials and score to save it](assets/images/submit_score.jpg)
+
+After submitting you will be displayed with the high scores ordered in descending order.
 ![Screen showing the saved high scores](assets/images/high_scores.jpg)
+
+#### Special consideration!!
+If the time reaches 0 the game will be finished inmediatly and will display the submit score screen.
