@@ -58,6 +58,11 @@ function cleanQuestionContainer() {
     questionContainer.innerHTML = '';
 }
 
+function cleanScoreContainer() {
+    scoreContainer.innerHTML = '<h1 id="score-header">All done!</h1>\n' +
+        '                       <p id="final-score"></p>'
+}
+
 //Function that will create and append the question elements to the DOM
 function createTemplateElements() {
 
@@ -79,6 +84,30 @@ function createTemplateElements() {
     }
 }
 
+//Function to sort the high scores
+function sortHighScores() {
+    let scores = [];
+    let aux;
+
+    for (let i = 1; i <= localStorage.length; i++) {
+        let key = 'player ' + i
+        scores.push(JSON.parse(localStorage.getItem(key)));
+    }
+
+    for (let i = 0; i < scores.length; i++) {
+        for(let j = 0; j < scores.length - 1; j++) {
+            if(scores[j].score < scores[j + 1].score) {
+                console.log(scores[j].score + '<' + scores[j + 1].score);
+                aux = scores[j];
+                scores[j] = scores[j + 1];
+                scores[j + 1] = aux;
+                console.log(scores[i].score + '>' + scores[j + 1].score);
+            }
+        }
+    }
+    return scores;
+}
+
 //Function to render highscores screen
 function renderHighScores() {
     //If we click start quiz and then the view high scores button the timer will continue-
@@ -88,23 +117,21 @@ function renderHighScores() {
     timer.textContent = 'Time: ' + timeLeft;
 
     cleanQuestionContainer();
+    cleanScoreContainer();
     questionContainer.setAttribute('class', "hidden");
     scoreContainer.classList.remove('hidden');
-    let form = document.getElementById('form');
-    form.remove();
 
     let header = document.getElementById('score-header');
     let text = document.getElementById('final-score');
     let scoresList = document.createElement('ul');
     text.replaceWith(scoresList);
     scoresList.setAttribute('id', 'scores-list');
-    let player;
+    let scoresArray = sortHighScores();
     header.textContent = 'High Scores';
 
-    for (let i = 1; i <= localStorage.length; i++) {
+    for (let i = 1; i <= scoresArray.length; i++) {
         let liElement = document.createElement('li');
-        player = localStorage.key(i-1);
-        liElement.textContent = i + '. ' + player + ' - ' + localStorage.getItem(player);
+        liElement.textContent = i + '. ' + scoresArray[i - 1].initials + ' - ' + scoresArray[i - 1].score;
         scoresList.appendChild(liElement);
     }
 
@@ -214,10 +241,15 @@ function questionContainerClickHandler(event) {
 
 //Function to submit score
 function submitScore(event) {
-
     event.preventDefault();
     let inputText = document.getElementById('initials');
-    localStorage.setItem(inputText.value, timeLeft);
+    let playerNumber = localStorage.length + 1;
+    let player = {
+        initials: inputText.value,
+        score: timeLeft
+    }
+    let key = 'player ' + playerNumber;
+    localStorage.setItem(key, JSON.stringify(player));
     renderHighScores();
 }
 
