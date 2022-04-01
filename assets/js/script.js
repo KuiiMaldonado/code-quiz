@@ -86,11 +86,26 @@ function createTemplateElements() {
 
 //Function to sort the high scores
 function sortHighScores() {
-    let scores;
-    let dict = {};
+    let scores = [];
+    let aux;
 
-    scores = JSON.parse(localStorage.getItem(localStorage.key(0)));
-    console.log(scores);
+    for (let i = 1; i <= localStorage.length; i++) {
+        let key = 'player ' + i
+        scores.push(JSON.parse(localStorage.getItem(key)));
+    }
+
+    for (let i = 0; i < scores.length; i++) {
+        for(let j = 0; j < scores.length - 1; j++) {
+            if(scores[j].score < scores[j + 1].score) {
+                console.log(scores[j].score + '<' + scores[j + 1].score);
+                aux = scores[j];
+                scores[j] = scores[j + 1];
+                scores[j + 1] = aux;
+                console.log(scores[i].score + '>' + scores[j + 1].score);
+            }
+        }
+    }
+    return scores;
 }
 
 //Function to render highscores screen
@@ -105,26 +120,21 @@ function renderHighScores() {
     cleanScoreContainer();
     questionContainer.setAttribute('class', "hidden");
     scoreContainer.classList.remove('hidden');
-    // let form = document.getElementById('form');
-    // if (form !== null)
-    //     form.remove();
 
     let header = document.getElementById('score-header');
     let text = document.getElementById('final-score');
     let scoresList = document.createElement('ul');
-    if(text !== null) {
-        text.replaceWith(scoresList);
-        scoresList.setAttribute('id', 'scores-list');
-    }
+    text.replaceWith(scoresList);
+    scoresList.setAttribute('id', 'scores-list');
     let player;
-    sortHighScores();
+    let scoresArray = sortHighScores();
     header.textContent = 'High Scores';
 
-    for (let i = 1; i <= localStorage.length; i++) {
+    for (let i = 1; i <= scoresArray.length; i++) {
         let liElement = document.createElement('li');
-        let key = 'player ' + i;
-        player = JSON.parse(localStorage.getItem(key));
-        liElement.textContent = i + '. ' + player.initials + ' - ' + player.score;
+        // let key = 'player ' + i;
+        // player = JSON.parse(localStorage.getItem(key));
+        liElement.textContent = i + '. ' + scoresArray[i - 1].initials + ' - ' + scoresArray[i - 1].score;
         scoresList.appendChild(liElement);
     }
 
